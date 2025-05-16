@@ -40,3 +40,21 @@ FROM customers c
 JOIN orders o ON c.customerNumber = o.customerNumber
 JOIN orderdetails od ON o.orderNumber = od.orderNumber
 JOIN products p ON od.productCode = p.productCode;
+
+-- Crear vista
+CREATE OR REPLACE VIEW customer_orders AS
+SELECT 
+    c.customerNumber,
+    c.customerName,
+    o.orderNumber,
+    o.orderDate,
+    o.status,
+    od.productCode,
+    p.productName,
+    od.quantityOrdered,
+    od.priceEach,
+    (od.quantityOrdered * od.priceEach) AS total
+FROM customers c
+JOIN orders o ON c.customerNumber = o.customerNumber
+JOIN orderdetails od ON o.orderNumber = od.orderNumber
+JOIN products p ON od.productCode = p.productCode;
